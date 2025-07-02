@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>App.qml</file>
+        <file>HomePage.qml</file>
+        <file>ImageDetailPage.qml</file>
+        <file>ImageSearchPage.qml</file>
+        <file>AILabelPage.qml</file>
+        <file>pixiv.png</file>
+        <file>ImageSearchPagecopy.qml</file>
+        <file>Icons/IxAi.png</file>
+        <file>TestPage2.qml</file>
+        <file>app.ico</file>
+        <file>ObjectDetectionPage.qml</file>
+    </qresource>
+</RCC>
