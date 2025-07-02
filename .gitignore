@@ -5,7 +5,7 @@
 Desktop\_Qt\_\*/
 /src/models/
 # CMake files
-
+/FluentUI/
 CMakeCache.txt
 CMakeFiles/
 cmake\_install.cmake

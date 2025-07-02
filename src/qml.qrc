@@ -12,5 +12,7 @@
         <file>TestPage2.qml</file>
         <file>app.ico</file>
         <file>ObjectDetectionPage.qml</file>
+        <file>MidjourneyPage.qml</file>
+        <file>DetailWindow.qml</file>
     </qresource>
 </RCC>
