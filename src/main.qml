@@ -76,7 +76,8 @@ FluWindow {
                         { text: qsTr("图片详情"),  icon: FluentIcons.Picture,   component: "ImageDetailPage" },
                         { text: qsTr("以图搜源"), icon: FluentIcons.Search,    component: "ImageSearchPage" },
                         { text: qsTr("AI标签"),   icon: FluentIcons.Attach,    component: "AILabelPage" },
-                        { text: qsTr("AI识物"),   icon: FluentIcons.Webcam,    component: "ObjectDetectionPage" }
+                        { text: qsTr("AI识物"),   icon: FluentIcons.Webcam,    component: "ObjectDetectionPage" },
+                        { text: qsTr("AI绘图"),   icon: FluentIcons.Edit,    component: "MidjourneyPage" }
                     ]
 
                     FluButton {
@@ -200,6 +201,10 @@ FluWindow {
             // 页面5: AI识图
             ObjectDetectionPage {
                 id: detectionPage
+            }
+            // 页面6: AI绘图
+            MidjourneyPage{
+                id: midjourneyPage
             }
         }
     }

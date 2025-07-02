@@ -581,17 +581,17 @@ FluScrollablePage {
                             }
                         }
 
-                        FluRadioButton {
-                            id: radioMobileNet
-                            text: "MobileNet"
-                            onClicked: {
-                                if (checked) {
-                                    radioYolo.checked = false
-                                    radioSSD.checked = false
-                                    cvTest.setDetectionModel("mobilenet")
-                                }
-                            }
-                        }
+                        // FluRadioButton {
+                        //     id: radioMobileNet
+                        //     text: "MobileNet"
+                        //     onClicked: {
+                        //         if (checked) {
+                        //             radioYolo.checked = false
+                        //             radioSSD.checked = false
+                        //             cvTest.setDetectionModel("mobilenet")
+                        //         }
+                        //     }
+                        // }
                     }
 
                     // 置信度设置

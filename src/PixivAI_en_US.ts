@@ -833,17 +833,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="139"/>
+        <location filename="main.qml" line="80"/>
+        <source>AI绘图</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="140"/>
         <source>💡 功能导览</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="151"/>
+        <location filename="main.qml" line="152"/>
         <source>版本: v1.0.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="158"/>
+        <location filename="main.qml" line="159"/>
         <source>FluentUI</source>
         <translation type="unfinished"></translation>
     </message>

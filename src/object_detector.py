@@ -82,15 +82,28 @@ class ObjectDetector:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         models_dir = os.path.join(script_dir, "models")
 
-        config_path = os.path.join(models_dir, "ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt")
-        weights_path = os.path.join(models_dir, "frozen_inference_graph.pb")
-
+        config_path = os.path.join(models_dir, "ssd_mobilenet_v2", "ssd_mobilenet_v2_coco.pbtxt")
+        weights_path = os.path.join(models_dir, "ssd_mobilenet_v2", "frozen_inference_graph.pb")
+        print(f"调试：SSD config路径 = {config_path}", file=sys.stderr)
+        print(f"调试：SSD weights路径 = {weights_path}", file=sys.stderr)
         print(f"调试：SSD config存在 = {os.path.exists(config_path)}", file=sys.stderr)
         print(f"调试：SSD weights存在 = {os.path.exists(weights_path)}", file=sys.stderr)
 
         if os.path.exists(weights_path) and os.path.exists(config_path):
             self.net = cv2.dnn.readNetFromTensorflow(weights_path, config_path)
-            self.classes = ["background", "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat"]  # 简化版COCO类别
+            # COCO数据集的80个类别
+            self.classes = [
+                "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat",
+                "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+                "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack",
+                "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball",
+                "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket",
+                "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple",
+                "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake",
+                "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv", "laptop",
+                "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink",
+                "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"
+            ]
             self.colors = np.random.uniform(0, 255, size=(len(self.classes), 3))
             print("✅ SSD MobileNet模型加载成功")
         else:
