@@ -6,15 +6,36 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import OpenCVTest 1.0
-
+import QtQuick.Dialogs
 // 1. 使用 FluScrollerPage 作为页面的根组件
 
 FluScrollablePage {
     id: root
     property string recognitionResult: "" // <--- 添加这一行
-
+    property string selectedImagePath: ""
+    property string imagePreviewSource: ""
     OpenCVTest {
         id: cvTest
+    }
+    // 文件选择对话框
+    FileDialog {
+        id: fileDialog
+        title: "选择图片文件"
+        nameFilters: ["图片文件 (*.png *.jpg *.jpeg *.bmp *.gif)"]
+        onAccepted: {
+            root.selectedImagePath = selectedFile.toString()
+            root.imagePreviewSource = selectedFile.toString()
+            showSuccess("图片选择成功: " + selectedFile.toString().split('/').pop())
+        }
+    }
+
+    // 新增连接
+    Connections {
+        target: cvTest
+        function onEnhancedClassificationFinished(result) {
+            root.recognitionResult = result
+            btnStartEnhancedRecognition.loading = false
+        }
     }
     RowLayout {
 
@@ -66,89 +87,105 @@ FluScrollablePage {
             // AI处理区域
             Rectangle {
                 width: parent.width
-                height: 250
+                height: 350  // 增加高度以容纳预览
                 color: FluTheme.itemHoverColor
                 radius: 12
                 border.width: 2
                 border.color: FluTheme.dividerColor
 
                 Column {
-                    anchors.centerIn: parent
+                    anchors.fill: parent
+                    anchors.margins: 15
                     spacing: 15
 
-                    FluText {
-                        text: qsTr("🤖")
-                        font.pointSize: 48
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: FluTheme.accentColor
+                    // 图片预览区域
+                    Rectangle {
+                        width: parent.width
+                        height: 200
+                        color: FluTheme.backgroundColor
+                        radius: 8
+                        border.width: 1
+                        border.color: FluTheme.dividerColor
+
+                        Image {
+                            id: imagePreview
+                            anchors.centerIn: parent
+                            width: parent.width - 20
+                            height: parent.height - 20
+                            fillMode: Image.PreserveAspectFit
+                            source: root.imagePreviewSource
+                            visible: root.imagePreviewSource !== ""
+
+                            Rectangle {
+                                anchors.fill: parent
+                                color: "transparent"
+                                border.width: 2
+                                border.color: FluTheme.accentColor
+                                radius: 4
+                                visible: parent.visible
+                            }
+                        }
+
+                        Column {
+                            anchors.centerIn: parent
+                            spacing: 10
+                            visible: root.imagePreviewSource === ""
+
+                            FluText {
+                                text: qsTr("📷")
+                                font.pointSize: 36
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                color: FluTheme.fontTertiaryColor
+                            }
+
+                            FluText {
+                                text: qsTr("点击选择图片进行AI识别")
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                color: FluTheme.fontTertiaryColor
+                            }
+                        }
                     }
 
-                    FluText {
-                        text: qsTr("AI 图像识别区域")
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        font: FluTextStyle.Body
-                    }
-
-                    FluText {
-                        text: qsTr("支持物体检测、场景分析、文字识别")
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        color: FluTheme.fontSecondaryColor
-                        font.pointSize: 10
-                    }
-
+                    // 操作按钮
                     Row {
                         spacing: 10
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         FluFilledButton {
                             text: qsTr("选择图片")
-                            onClicked: {
-                                showInfo(qsTr("选择图片功能待开发..."))
-                            }
-                        }
-
-                        FluButton {
-                            text: qsTr("使用摄像头")
-                            onClicked: {
-                                showInfo(qsTr("摄像头功能待开发..."))
-                            }
+                            onClicked: fileDialog.open()
                         }
 
                         FluLoadingButton {
-                            id: btnStartRecognition
-                            text: qsTr("AI识别演示")
+                            id: btnStartEnhancedRecognition
+                            text: qsTr("开始AI识别")
+                            enabled: root.selectedImagePath !== ""
 
                             onClicked: {
-                                loading = true; // 进入加载状态
-                                root.recognitionResult = "正在调用AI进行识别，请稍候...";
-                                cvTest.classifyImage("C:\\Users\\123\\Desktop\\68189098_p0_master1200.jpg");
+                                if (root.selectedImagePath === "") {
+                                    showWarning("请先选择图片")
+                                    return
+                                }
+
+                                loading = true
+                                root.recognitionResult = "正在进行AI识别，请稍候..."
+
+                                // 根据选择的模式调用不同的识别方法
+                                let mode = btnAnimeClassification.checked ? "anime" : "original"
+                                cvTest.classifyImageEnhanced(root.selectedImagePath, mode)
                             }
                         }
-                        Connections {
-                            target: cvTest
-                            function onClassificationFinished(result) {
-                                root.recognitionResult = result;
-                                btnStartRecognition.loading = false; // 停止加载
-                            }
-                        }
+
                         FluButton {
                             text: qsTr("清空结果")
                             onClicked: {
-                                root.recognitionResult = "" // <--- 添加这一行
-                                showInfo(qsTr("结果已清空"))
-                            }
-                        }
-                        FluButton {
-                            text: "测试OpenCV"
-                            onClicked: {
-                                showInfo("OpenCV版本: " + cvTest.getOpenCVVersion())
-                                showSuccess("OpenCV测试: " + (cvTest.testOpenCV() ? "成功" : "失败"))
+                                root.recognitionResult = ""
+                                showInfo("结果已清空")
                             }
                         }
                     }
                 }
             }
-
             FluGroupBox {
                 title: qsTr("识别模式")
                 width: parent.width
@@ -163,72 +200,14 @@ FluScrollablePage {
                         columnSpacing: 15
                         rowSpacing: 8
 
-                        // 为了实现互斥，我们需要给每个按钮一个唯一的ID
                         FluToggleButton {
-                            id: btnObjectDetection
-                            text: qsTr("🎯 物体检测")
-                            checked: true // 默认选中第一个
+                            id: btnOriginalClassification
+                            text: qsTr("🤖 通用识别")
+                            checked: true // 默认选中
                             Layout.fillWidth: true
                             onClicked: {
                                 if (checked) {
-                                    // 当此按钮被选中时，取消其他按钮的选中状态
-                                    btnFaceRecognition.checked = false
-                                    btnTextRecognition.checked = false
-                                    btnSceneAnalysis.checked = false
-                                } else {
-                                    // 防止用户取消选中最后一个选项，确保至少有一个被选中
-                                    checked = true
-                                }
-                            }
-                        }
-
-
-
-
-                        FluToggleButton {
-                            id: btnFaceRecognition
-                            Layout.fillWidth: true // 让按钮填满单元格宽度
-                            onClicked: {
-                                if (checked) {
-                                    btnObjectDetection.checked = false
-                                    btnTextRecognition.checked = false
-                                    btnSceneAnalysis.checked = false
-                                } else {
-                                    checked = true
-                                }
-                            }
-
-                            // 使用 RowLayout 来水平排列图标和文字
-                            RowLayout {
-                                anchors.centerIn: parent // 让布局在按钮内部居中
-                                spacing: 8               // 图标和文字之间的间距
-
-                                FluIcon {
-                                    iconSource: FluentIcons.People
-                                    font.pointSize: 16 // 调整一个适合按钮的图标大小
-                                    // 这里我将颜色绑定到了按钮自身的选中状态 (checked)
-                                    color: btnFaceRecognition.checked ? "white" : FluTheme.fontSecondaryColor
-                                    Layout.alignment: Qt.AlignVCenter
-                                }
-
-                                FluText {
-                                    // 注意，我们把文字放到了独立的 FluText 组件中
-                                    text: qsTr("人脸识别") // 移除了 emoji，因为我们有了图标
-                                    color: btnFaceRecognition.checked ? "white" : FluTheme.fontSecondaryColor
-                                    Layout.alignment: Qt.AlignVCenter
-                                }
-                            }
-                        }
-
-                        FluToggleButton {
-                            id: btnTextRecognition
-                            text: qsTr("📝 文字识别")
-                            Layout.fillWidth: true
-                            onClicked: {
-                                if (checked) {
-                                    btnObjectDetection.checked = false
-                                    btnFaceRecognition.checked = false
-                                    btnSceneAnalysis.checked = false
+                                    btnAnimeClassification.checked = false
                                 } else {
                                     checked = true
                                 }
@@ -236,14 +215,12 @@ FluScrollablePage {
                         }
 
                         FluToggleButton {
-                            id: btnSceneAnalysis
-                            text: qsTr("🏞️ 场景分析")
+                            id: btnAnimeClassification
+                            text: qsTr("🎨 二次元识别")
                             Layout.fillWidth: true
                             onClicked: {
                                 if (checked) {
-                                    btnObjectDetection.checked = false
-                                    btnFaceRecognition.checked = false
-                                    btnTextRecognition.checked = false
+                                    btnOriginalClassification.checked = false
                                 } else {
                                     checked = true
                                 }
@@ -253,24 +230,7 @@ FluScrollablePage {
                 }
             }
 
-            // 处理按钮
-            Row {
-                spacing: 10
 
-                FluFilledButton {
-                    text: qsTr("开始识别")
-                    onClicked: {
-                        showSuccess(qsTr("AI识别功能待开发..."))
-                    }
-                }
-
-                FluButton {
-                    text: qsTr("清空结果")
-                    onClicked: {
-                        showInfo(qsTr("结果已清空"))
-                    }
-                }
-            }
         }
 
         // 右侧结果区域
@@ -291,78 +251,10 @@ FluScrollablePage {
                 text: root.recognitionResult // <--- 核心绑定！
                 placeholderText: "点击左侧“AI识别演示”按钮开始..."
             }
-            // 检测结果
-            Rectangle {
-                width: parent.width
-                height: 150
-                color: FluTheme.itemHoverColor
-                radius: 8
-                border.width: 1
-                border.color: FluTheme.dividerColor
 
-                Column {
-                    anchors.fill: parent
-                    anchors.margins: 15
-                    spacing: 8
 
-                    FluText {
-                        text: qsTr("检测到的物体:")
-                        font: FluTextStyle.BodyStrong
-                    }
 
-                    FluText { text: qsTr("• 🐱 猫咪 (95%)") }
-                    FluText { text: qsTr("• 🪑 椅子 (87%)") }
-                    FluText { text: qsTr("• 📚 书本 (82%)") }
-                }
-            }
 
-            // 文字识别结果
-            Rectangle {
-                width: parent.width
-                height: 100
-                color: FluTheme.itemHoverColor
-                radius: 8
-                border.width: 1
-                border.color: FluTheme.dividerColor
-
-                Column {
-                    anchors.fill: parent
-                    anchors.margins: 15
-                    spacing: 8
-
-                    FluText {
-                        text: qsTr("文字识别(OCR):")
-                        font: FluTextStyle.BodyStrong
-                    }
-
-                    FluText {
-                        text: qsTr("识别出的文字内容...")
-                        color: FluTheme.fontSecondaryColor
-                    }
-                }
-            }
-
-            // 操作按钮
-            Column {
-                width: parent.width
-                spacing: 8
-
-                FluButton {
-                    width: parent.width
-                    text: qsTr("📋 复制结果")
-                    onClicked: {
-                        showSuccess(qsTr("结果已复制"))
-                    }
-                }
-
-                FluButton {
-                    width: parent.width
-                    text: qsTr("💾 保存报告")
-                    onClicked: {
-                        showSuccess(qsTr("报告已保存"))
-                    }
-                }
-            }
         }
     }
 }

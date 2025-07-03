@@ -17,8 +17,12 @@
 #include <QFileInfo>
 #include <QImageCapture>  // 新增：用于图像捕获
 #include <QUrl>
+//文件复制
+#include <QGuiApplication>
+#include <QClipboard>
 
 OpenCVTest::OpenCVTest(QObject *parent)
+    // 摄像头组件
     : QObject(parent)
     , m_camera(nullptr)
     , m_videoSink(nullptr)
@@ -53,7 +57,22 @@ OpenCVTest::OpenCVTest(QObject *parent)
     // 目标检测进程连接
     connect(&m_detectionProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
             this, &OpenCVTest::onDetectionProcessFinished);
+    // 增强版分类功能连接
+    // 增强版分类功能连接 - 修正版
+    connect(&m_enhancedProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this,
+            [this](int exitCode, QProcess::ExitStatus exitStatus){
+                Q_UNUSED(exitStatus);
+                QString aiResult = QString::fromUtf8(m_enhancedProcess.readAllStandardOutput());
 
+                // 如果有标准输出，直接使用（忽略stderr的TensorFlow日志）
+                if (!aiResult.isEmpty()) {
+                    emit enhancedClassificationFinished(aiResult);
+                } else {
+                    // 只有在真正没有输出时才报告错误
+                    QString errorOutput = QString::fromUtf8(m_enhancedProcess.readAllStandardError());
+                    emit enhancedClassificationFinished(QString("AI分类无输出: %1").arg(errorOutput));
+                }
+            });
     // 帧等待定时器设置 - 缩短等待时间
     m_frameWaitTimer->setSingleShot(true);
     m_frameWaitTimer->setInterval(1000); // 等待1秒让摄像头稳定
@@ -85,7 +104,7 @@ bool OpenCVTest::testOpenCV() {
     cv::Mat img = cv::Mat::zeros(100, 100, CV_8UC3);
     return !img.empty();
 }
-
+//图片预处理
 QString OpenCVTest::preprocessImage(const QString& imagePath) {
     try {
         QString actualPath = imagePath;
@@ -118,7 +137,7 @@ QString OpenCVTest::preprocessImage(const QString& imagePath) {
         return QString("OpenCV处理错误: %1").arg(e.what());
     }
 }
-
+//图片分类
 void OpenCVTest::classifyImage(const QString& imagePath) {
     QString preprocessResult = preprocessImage(imagePath);
     if (preprocessResult.contains("失败") || preprocessResult.contains("无法读取")) {
@@ -235,7 +254,7 @@ void OpenCVTest::detectObjects(const QString& imagePath) {
         emit detectionError(QString("检测过程错误: %1").arg(e.what()));
     }
 }
-
+//检测触发
 void OpenCVTest::detectObjectsFromCamera() {
     qDebug() << "🔍 detectObjectsFromCamera 被调用";
     qDebug() << "   摄像头状态:" << m_cameraActive;
@@ -597,3 +616,33 @@ void OpenCVTest::initializeDetectionProcess() {
         m_detectionProcess.waitForFinished(1000);
     }
 }
+
+void OpenCVTest::classifyImageEnhanced(const QString& imagePath, const QString& mode) {
+    QString actualPath = imagePath;
+
+    // 处理qrc路径（复用现有逻辑）
+    if (imagePath.startsWith("qrc:/")) {
+        QFile sourceFile(imagePath);
+        if (sourceFile.open(QIODevice::ReadOnly)) {
+            QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + "/temp_enhanced_input.png";
+            QFile tempFile(tempPath);
+            if (tempFile.open(QIODevice::WriteOnly)) {
+                tempFile.write(sourceFile.readAll());
+                tempFile.close();
+                actualPath = tempPath;
+            }
+            sourceFile.close();
+        }
+    }
+
+    QString pythonScript = QCoreApplication::applicationDirPath() + "/enhanced_ai_classifier.py";
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("PYTHONIOENCODING", "UTF-8");
+    m_enhancedProcess.setProcessEnvironment(env);
+    m_enhancedProcess.setProgram("python");
+    m_enhancedProcess.setArguments(QStringList() << pythonScript << actualPath << mode);
+    m_enhancedProcess.start();
+}
+
+

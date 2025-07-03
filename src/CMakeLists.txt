@@ -15,9 +15,9 @@ if(APPLE)
 else()
     set(APPLICATION_DIR_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
-
+#找包
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Multimedia )
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Multimedia  Sql Network)
 
 # 手动配置OpenCV
 message(STATUS "配置OpenCV...")
@@ -67,7 +67,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         opencvtest.h opencvtest.cpp
         ai_classifier.py
         icon.rc
-        object_detector.py # <--- 关键改动：添加资源文件
+        object_detector.py
+        simpledb.h simpledb.cpp
+        filedownloader.h filedownloader.cpp
+        enhanced_ai_classifier.py
+        # <--- 关键改动：添加资源文件
     )
 else()
     add_executable(${PROJECT_NAME}
@@ -82,6 +86,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Multimedia
+    Qt${QT_VERSION_MAJOR}::Sql  # 新增：链接 SQL 库
+    Qt${QT_VERSION_MAJOR}::Network #网络模块
     fluentuiplugin
     ${OpenCV_LIBS}
 )
@@ -153,5 +159,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ai_classifier.py
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/object_detector.py
               ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/object_detector.py
               COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/enhanced_ai_classifier.py
+             ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/enhanced_ai_classifier.py
+             COPYONLY)
 # 复制整个 models 文件夹到输出目录
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/models/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/models/)

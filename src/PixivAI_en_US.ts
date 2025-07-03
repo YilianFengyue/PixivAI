@@ -4,228 +4,132 @@
 <context>
     <name>AILabelPage</name>
     <message>
-        <location filename="AILabelPage.qml" line="49"/>
+        <location filename="AILabelPage.qml" line="70"/>
         <source>AI 标签识别</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="54"/>
+        <location filename="AILabelPage.qml" line="75"/>
         <source>智能识别图片内容，生成标签</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="80"/>
-        <source>🤖</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="87"/>
-        <source>AI 图像识别区域</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="93"/>
-        <source>支持物体检测、场景分析、文字识别</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="104"/>
+        <location filename="AILabelPage.qml" line="155"/>
         <source>选择图片</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="106"/>
-        <source>选择图片功能待开发...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="111"/>
-        <source>使用摄像头</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="113"/>
-        <source>摄像头功能待开发...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="119"/>
-        <source>AI识别演示</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="153"/>
+        <location filename="AILabelPage.qml" line="190"/>
         <source>识别模式</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="169"/>
-        <source>🎯 物体检测</source>
+        <location filename="AILabelPage.qml" line="205"/>
+        <source>🤖 通用识别</source>
+        <oldsource>🎯 物体检测</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="216"/>
-        <source>人脸识别</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="225"/>
-        <source>📝 文字识别</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="240"/>
-        <source>🏞️ 场景分析</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="261"/>
-        <source>开始识别</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="263"/>
-        <source>AI识别功能待开发...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="135"/>
-        <location filename="AILabelPage.qml" line="268"/>
+        <location filename="AILabelPage.qml" line="180"/>
         <source>清空结果</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="138"/>
-        <location filename="AILabelPage.qml" line="270"/>
-        <source>结果已清空</source>
+        <location filename="AILabelPage.qml" line="219"/>
+        <source>🎨 二次元识别</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="AILabelPage.qml" line="283"/>
+        <location filename="AILabelPage.qml" line="135"/>
+        <source>📷</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AILabelPage.qml" line="142"/>
+        <source>点击选择图片进行AI识别</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AILabelPage.qml" line="161"/>
+        <source>开始AI识别</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AILabelPage.qml" line="243"/>
         <source>识别结果</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="309"/>
-        <source>检测到的物体:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="313"/>
-        <source>• 🐱 猫咪 (95%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="314"/>
-        <source>• 🪑 椅子 (87%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="315"/>
-        <source>• 📚 书本 (82%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="334"/>
-        <source>文字识别(OCR):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="339"/>
-        <source>识别出的文字内容...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="352"/>
-        <source>📋 复制结果</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="354"/>
-        <source>结果已复制</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="360"/>
-        <source>💾 保存报告</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AILabelPage.qml" line="362"/>
-        <source>报告已保存</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>HomePage</name>
     <message>
-        <location filename="HomePage.qml" line="34"/>
+        <location filename="HomePage.qml" line="53"/>
         <source>搜索词：</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="42"/>
+        <location filename="HomePage.qml" line="61"/>
         <source>输入搜索关键词（如：arknights, anime, landscape）</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="48"/>
+        <location filename="HomePage.qml" line="67"/>
         <source>每页：</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="61"/>
+        <location filename="HomePage.qml" line="80"/>
         <source>搜索</source>
         <oldsource>📷 拍照</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="78"/>
+        <location filename="HomePage.qml" line="97"/>
         <source>正在加载壁纸...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="195"/>
+        <location filename="HomePage.qml" line="214"/>
         <source>上一页</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="204"/>
+        <location filename="HomePage.qml" line="223"/>
         <source>第 %1 页</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="209"/>
+        <location filename="HomePage.qml" line="228"/>
         <source>下一页</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="222"/>
+        <location filename="HomePage.qml" line="243"/>
         <source>壁纸详情</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="397"/>
+        <location filename="HomePage.qml" line="299"/>
         <source>下载原图</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="404"/>
+        <location filename="HomePage.qml" line="315"/>
         <source>关闭</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="437"/>
+        <location filename="HomePage.qml" line="351"/>
         <source>没有找到相关壁纸</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="440"/>
+        <location filename="HomePage.qml" line="354"/>
         <source>解析数据失败：</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="HomePage.qml" line="443"/>
+        <location filename="HomePage.qml" line="357"/>
         <source>网络请求失败，状态码：</source>
         <translation type="unfinished"></translation>
     </message>
@@ -238,346 +142,166 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="58"/>
-        <source>以图搜图 - 文件上传测试</source>
+        <location filename="ImageSearchPage.qml" line="78"/>
+        <source>以图搜源</source>
+        <oldsource>以图搜图 - 文件上传测试</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="98"/>
+        <location filename="ImageSearchPage.qml" line="118"/>
         <source>文件已选择</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="98"/>
+        <location filename="ImageSearchPage.qml" line="118"/>
         <source>点击选择图片文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="106"/>
+        <location filename="ImageSearchPage.qml" line="126"/>
         <source>支持: JPG, PNG, GIF, BMP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="145"/>
+        <location filename="ImageSearchPage.qml" line="165"/>
         <source>文件信息</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="152"/>
+        <location filename="ImageSearchPage.qml" line="172"/>
         <source>文件名:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="167"/>
+        <location filename="ImageSearchPage.qml" line="187"/>
         <source>文件路径:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="183"/>
+        <location filename="ImageSearchPage.qml" line="203"/>
         <source>文件大小:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="212"/>
+        <location filename="ImageSearchPage.qml" line="232"/>
         <source>图片预览</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="245"/>
-        <location filename="ImageSearchPage.qml" line="434"/>
+        <location filename="ImageSearchPage.qml" line="265"/>
+        <location filename="ImageSearchPage.qml" line="454"/>
         <source>图片加载失败</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="263"/>
+        <location filename="ImageSearchPage.qml" line="283"/>
         <source>重新选择</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="268"/>
+        <location filename="ImageSearchPage.qml" line="288"/>
         <source>清除文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="273"/>
+        <location filename="ImageSearchPage.qml" line="293"/>
         <source>搜索中...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="273"/>
+        <location filename="ImageSearchPage.qml" line="293"/>
         <source>开始以图搜图</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="330"/>
+        <location filename="ImageSearchPage.qml" line="350"/>
         <source>关闭</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="124"/>
-        <location filename="ImageSearchPage.qml" line="585"/>
+        <location filename="ImageSearchPage.qml" line="144"/>
+        <location filename="ImageSearchPage.qml" line="613"/>
         <source>选择图片文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="296"/>
+        <location filename="ImageSearchPage.qml" line="316"/>
         <source>正在搜索相似图片...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="356"/>
+        <location filename="ImageSearchPage.qml" line="376"/>
         <source>🎯 找到最相似的图片</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="449"/>
+        <location filename="ImageSearchPage.qml" line="469"/>
         <source>作品标题:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="455"/>
-        <location filename="ImageSearchPage.qml" line="470"/>
-        <location filename="ImageSearchPage.qml" line="485"/>
-        <location filename="ImageSearchPage.qml" line="500"/>
-        <location filename="ImageSearchPage.qml" line="515"/>
-        <location filename="ImageSearchPage.qml" line="530"/>
-        <location filename="ImageSearchPage.qml" line="545"/>
+        <location filename="ImageSearchPage.qml" line="475"/>
+        <location filename="ImageSearchPage.qml" line="490"/>
+        <location filename="ImageSearchPage.qml" line="505"/>
+        <location filename="ImageSearchPage.qml" line="520"/>
+        <location filename="ImageSearchPage.qml" line="535"/>
+        <location filename="ImageSearchPage.qml" line="550"/>
+        <location filename="ImageSearchPage.qml" line="565"/>
         <source>未知</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="464"/>
+        <location filename="ImageSearchPage.qml" line="484"/>
         <source>作者:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="479"/>
+        <location filename="ImageSearchPage.qml" line="499"/>
         <source>Pixiv ID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="494"/>
+        <location filename="ImageSearchPage.qml" line="514"/>
         <source>相似度:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="509"/>
+        <location filename="ImageSearchPage.qml" line="529"/>
         <source>分辨率:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="524"/>
+        <location filename="ImageSearchPage.qml" line="544"/>
         <source>收藏数:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="539"/>
+        <location filename="ImageSearchPage.qml" line="559"/>
         <source>浏览数:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="558"/>
+        <location filename="ImageSearchPage.qml" line="578"/>
         <source>访问Pixiv</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="567"/>
-        <source>下载原图</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPage.qml" line="604"/>
+        <location filename="ImageSearchPage.qml" line="632"/>
         <source>文件选择成功: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="608"/>
+        <location filename="ImageSearchPage.qml" line="636"/>
         <source>已取消文件选择</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="619"/>
+        <location filename="ImageSearchPage.qml" line="647"/>
         <source>已清除选择的文件</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ImageSearchPage.qml" line="634"/>
-        <source>请先选择一个图片文件</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ImageSearchPagecopy</name>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="27"/>
-        <source>搜索完成！相似度: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="56"/>
-        <source>以图搜图 - 文件上传测试</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="96"/>
-        <source>文件已选择</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="96"/>
-        <source>点击选择图片文件</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="104"/>
-        <source>支持: JPG, PNG, GIF, BMP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="122"/>
-        <location filename="ImageSearchPagecopy.qml" line="583"/>
-        <source>选择图片文件</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="143"/>
-        <source>文件信息</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="150"/>
-        <source>文件名:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="165"/>
-        <source>文件路径:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="181"/>
-        <source>文件大小:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="210"/>
-        <source>图片预览</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="243"/>
-        <location filename="ImageSearchPagecopy.qml" line="432"/>
-        <source>图片加载失败</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="261"/>
-        <source>重新选择</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="266"/>
-        <source>清除文件</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="271"/>
-        <source>搜索中...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="271"/>
-        <source>开始以图搜图</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="294"/>
-        <source>正在搜索相似图片...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="328"/>
-        <source>关闭</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="354"/>
-        <source>🎯 找到最相似的图片</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="447"/>
-        <source>作品标题:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="453"/>
-        <location filename="ImageSearchPagecopy.qml" line="468"/>
-        <location filename="ImageSearchPagecopy.qml" line="483"/>
-        <location filename="ImageSearchPagecopy.qml" line="498"/>
-        <location filename="ImageSearchPagecopy.qml" line="513"/>
-        <location filename="ImageSearchPagecopy.qml" line="528"/>
-        <location filename="ImageSearchPagecopy.qml" line="543"/>
-        <source>未知</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="462"/>
-        <source>作者:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="477"/>
-        <source>Pixiv ID:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="492"/>
-        <source>相似度:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="507"/>
-        <source>分辨率:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="522"/>
-        <source>收藏数:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="537"/>
-        <source>浏览数:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="556"/>
-        <source>访问Pixiv</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="565"/>
-        <source>下载原图</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="602"/>
-        <source>文件选择成功: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="606"/>
-        <source>已取消文件选择</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="617"/>
-        <source>已清除选择的文件</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ImageSearchPagecopy.qml" line="632"/>
+        <location filename="ImageSearchPage.qml" line="662"/>
         <source>请先选择一个图片文件</source>
         <translation type="unfinished"></translation>
     </message>
@@ -640,32 +364,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="541"/>
+        <location filename="ObjectDetectionPage.qml" line="605"/>
         <source>检测参数</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="554"/>
+        <location filename="ObjectDetectionPage.qml" line="618"/>
         <source>检测模型:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="603"/>
+        <location filename="ObjectDetectionPage.qml" line="645"/>
         <source>置信度阈值:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="640"/>
+        <location filename="ObjectDetectionPage.qml" line="682"/>
         <source>显示边界框</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="646"/>
+        <location filename="ObjectDetectionPage.qml" line="688"/>
         <source>显示置信度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="652"/>
+        <location filename="ObjectDetectionPage.qml" line="694"/>
         <source>自动保存结果</source>
         <translation type="unfinished"></translation>
     </message>
@@ -700,98 +424,58 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="658"/>
+        <location filename="ObjectDetectionPage.qml" line="700"/>
         <source>检测后自动捕获</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="672"/>
+        <location filename="ObjectDetectionPage.qml" line="714"/>
         <source>开始检测</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="682"/>
+        <location filename="ObjectDetectionPage.qml" line="724"/>
         <source>清空结果</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="686"/>
+        <location filename="ObjectDetectionPage.qml" line="728"/>
         <source>检测结果已清空</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="691"/>
-        <source>保存报告</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="694"/>
-        <source>检测报告已保存</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="724"/>
+        <location filename="ObjectDetectionPage.qml" line="758"/>
         <source>正在检测中...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="724"/>
+        <location filename="ObjectDetectionPage.qml" line="758"/>
         <source>检测就绪</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="740"/>
+        <location filename="ObjectDetectionPage.qml" line="774"/>
         <source>检测结果</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="770"/>
+        <location filename="ObjectDetectionPage.qml" line="804"/>
         <source>检测统计:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="779"/>
+        <location filename="ObjectDetectionPage.qml" line="813"/>
         <source>检测到的物体</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="793"/>
+        <location filename="ObjectDetectionPage.qml" line="827"/>
         <source>平均置信度</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ObjectDetectionPage.qml" line="807"/>
+        <location filename="ObjectDetectionPage.qml" line="841"/>
         <source>处理时间</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="829"/>
-        <source>📋 复制检测结果</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="833"/>
-        <source>检测结果已复制到剪贴板</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="839"/>
-        <source>📊 导出检测报告</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="842"/>
-        <source>检测报告已导出</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="848"/>
-        <source>⚙️ 高级设置</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ObjectDetectionPage.qml" line="850"/>
-        <source>高级设置功能待开发...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -838,17 +522,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="140"/>
+        <location filename="main.qml" line="81"/>
+        <source>历史记录</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="main.qml" line="141"/>
         <source>💡 功能导览</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="152"/>
+        <location filename="main.qml" line="153"/>
         <source>版本: v1.0.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.qml" line="159"/>
+        <location filename="main.qml" line="160"/>
         <source>FluentUI</source>
         <translation type="unfinished"></translation>
     </message>

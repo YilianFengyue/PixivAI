@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 import Qt.labs.platform 1.1
 import FluentUI 1.0
 import ImageSearch 1.0
-
+import Tools 1.0
 FluScrollablePage {
 
     id: root
@@ -39,6 +39,26 @@ FluScrollablePage {
         }
     }
 
+    //对话框
+
+    FileDialog {
+        id: saveDlg
+        title: "保存图片到..."
+        fileMode: FileDialog.SaveFile
+        nameFilters: ["JPEG (*.jpg *.jpeg)", "PNG (*.png)", "所有文件 (*)"]
+
+        onAccepted: {
+            var path = file.toString()    // 使用 file 而不是 selectedFile！
+            if (path.startsWith("file:///"))
+                path = path.substring(8)
+
+            // 使用搜索结果中的图片URL
+            var raw = searchResult.imageUrl
+            var proxied = parsePixivImageUrl(raw)  // 使用现有的函数处理防盗链
+
+            Downloader.download(proxied, path)
+        }
+    }
     // 主滚动视图
     // ScrollView {
         // anchors.fill: parent
@@ -55,7 +75,7 @@ FluScrollablePage {
 
             // 标题
             FluText {
-                text: qsTr("以图搜图 - 文件上传测试")
+                text: qsTr("以图搜源")
                 font.pixelSize: 24
                 font.bold: true
                 Layout.alignment: Qt.AlignHCenter
@@ -564,12 +584,20 @@ FluScrollablePage {
                             }
 
                             FluButton {
-                                text: qsTr("下载原图")
+                                text: "下载原图"
+                                enabled: searchResult && searchResult.imageUrl  // 改为检查 searchResult
                                 onClicked: {
-                                    if (searchResult && searchResult.originalUrl) {
-                                        Qt.openUrlExternally(parsePixivImageUrl(searchResult.originalUrl))
-                                    }
+                                    // 使用搜索结果的标题和ID
+                                    var safeTitle = searchResult.title.replace(/[/\\:*?"<>|]/g, "_")
+                                    saveDlg.currentFile = searchResult.pixivId + "_" + safeTitle + ".jpg"
+                                    saveDlg.open()
                                 }
+                            }
+
+                            Connections {
+                                target: Downloader
+                                onSuccess: showSuccess("已保存: " + filePath)
+                                onFailure: showError(reason)
                             }
                         }
                     }

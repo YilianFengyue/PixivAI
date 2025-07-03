@@ -2,7 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FluentUI 1.0
-
+import Tools 1.0
+import QtQuick.Dialogs
 Item {
     id: root
 
@@ -55,6 +56,24 @@ Item {
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
     }
 
+    //对话框
+    FileDialog {
+        id: saveDlg
+        title: "保存图片到..."
+        fileMode: FileDialog.SaveFile
+        nameFilters: ["JPEG (*.jpg *.jpeg)", "PNG (*.png)", "所有文件 (*)"]
+
+        onAccepted: {
+            var path = selectedFile.toString()    // 先转为字符串！
+            if (path.startsWith("file:///"))
+                path = path.substring(8)
+
+            var raw = illustData.meta_single_page.original_image_url
+            var proxied = raw.replace("https://i.pximg.net/", "https://pixivic.lapu2023.workers.dev/")
+
+            Downloader.download(proxied, path)
+        }
+    }
     // --- 主体内容 ---
     ColumnLayout {
         anchors.fill: parent
@@ -336,6 +355,22 @@ Item {
                                     onClicked: {
                                         showSuccess("ID 已复制")
                                     }
+                                }
+                                FluButton {
+                                    text: "下载原图"
+                                    enabled: illustData && illustData.meta_single_page.original_image_url
+                                    onClicked: {
+                                        // 将 Windows 不允许的字符替换掉
+                                        var safeTitle = illustData.title.replace(/[/\\:*?"<>|]/g, "_")
+                                        saveDlg.currentFile = illustData.id + "_" + safeTitle + ".jpg"
+                                        saveDlg.open()
+                                    }
+                                }
+
+                                Connections {
+                                    target: Downloader
+                                    onSuccess: showSuccess("已保存: " + filePath)  // 改这里
+                                    onFailure: showError(reason)                   // 改这里
                                 }
                             }
                         }

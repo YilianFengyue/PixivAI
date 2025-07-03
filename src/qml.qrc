@@ -7,12 +7,11 @@
         <file>ImageSearchPage.qml</file>
         <file>AILabelPage.qml</file>
         <file>pixiv.png</file>
-        <file>ImageSearchPagecopy.qml</file>
         <file>Icons/IxAi.png</file>
         <file>TestPage2.qml</file>
         <file>app.ico</file>
         <file>ObjectDetectionPage.qml</file>
         <file>MidjourneyPage.qml</file>
-        <file>DetailWindow.qml</file>
+        <file>SimpleHistoryPage.qml</file>
     </qresource>
 </RCC>

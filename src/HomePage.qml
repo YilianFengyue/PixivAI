@@ -3,7 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
-
+import Tools 1.0
+import Qt.labs.platform 1.1
 // Wallhaven壁纸浏览器主窗口
 FluScrollablePage {
     id: wallhavenPage // 给根组件一个新的ID
@@ -17,6 +18,24 @@ FluScrollablePage {
     // 壁纸数据列表
     ListModel {
         id: wallpaperModel
+    }
+    //下载对话框
+    FileDialog {
+        id: saveDlg
+        title: "保存壁纸到..."
+        fileMode: FileDialog.SaveFile
+        nameFilters: ["JPEG (*.jpg *.jpeg)", "PNG (*.png)", "所有文件 (*)"]
+
+        onAccepted: {
+            var path = file.toString()
+            if (path.startsWith("file:///"))
+                path = path.substring(8)
+
+            var imageUrl = saveDlg.wallpaperUrl
+            Downloader.download(imageUrl, path)
+        }
+
+        property string wallpaperUrl: ""
     }
 
     // 主布局
@@ -216,195 +235,90 @@ FluScrollablePage {
         }
     }
 
-    // 详情对话框
-    FluContentDialog {
-        id: detailDialog
+
+    Window {
+        id: detailWindow
+        width: 600
+        height: 500
         title: qsTr("壁纸详情")
+        modality: Qt.ApplicationModal
 
         property var wallpaperData: null
 
-        contentDelegate: Component {
-            Item {
-                width: 600
-                height: 500
+        Rectangle {
+            anchors.fill: parent
+            color: FluTheme.dark ? "#202020" : "#F5F5F5"
 
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 20
+                spacing: 15
+
+                // 大图预览
+                Image {
+                    id: fullImage
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 300
+                    fillMode: Image.PreserveAspectFit
+                    source: detailWindow.wallpaperData ? detailWindow.wallpaperData.path : ""
+
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "transparent"
+                        border.color: "#E0E0E0"
+                        border.width: 1
+                        radius: 4
+                    }
+                }
+
+                // 详细信息（简化版）
                 ColumnLayout {
-                    anchors.fill: parent
-                    anchors.margins: 20
-                    spacing: 15
+                    Layout.fillWidth: true
+                    spacing: 8
 
-                    // 大图预览
-                    Image {
-                        id: fullImage
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 300
-                        fillMode: Image.PreserveAspectFit
-                        source: detailDialog.wallpaperData ? detailDialog.wallpaperData.path : ""
+                    Text {
+                        text: "ID: " + (detailWindow.wallpaperData ? detailWindow.wallpaperData.id : "")
+                        font.pixelSize: 12
+                    }
+                    Text {
+                        text: "分辨率: " + (detailWindow.wallpaperData ? detailWindow.wallpaperData.resolution : "")
+                        font.pixelSize: 12
+                    }
+                    Text {
+                        text: "收藏: " + (detailWindow.wallpaperData ? detailWindow.wallpaperData.favorites : "0")
+                        font.pixelSize: 12
+                    }
+                }
 
-                        Rectangle {
-                            anchors.fill: parent
-                            color: "transparent"
-                            border.color: "#E0E0E0"
-                            border.width: 1
-                            radius: 4
-                        }
+                // 按钮
+                RowLayout {
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: 10
 
-                        FluProgressRing {
-                            anchors.centerIn: parent
-                            visible: fullImage.status === Image.Loading
-                            width: 40
-                            height: 40
+                    FluFilledButton {
+                        text: qsTr("下载原图")
+                        onClicked: {
+                            if (detailWindow.wallpaperData && detailWindow.wallpaperData.path) {
+                                var filename = detailWindow.wallpaperData.id + "_" + detailWindow.wallpaperData.resolution + ".jpg"
+                                saveDlg.currentFile = filename
+                                saveDlg.wallpaperUrl = detailWindow.wallpaperData.path
+                                saveDlg.open()
+                            }
                         }
                     }
-
-                    // 详细信息
-                    ScrollView {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-
-                        ColumnLayout {
-                            width: parent.width
-                            spacing: 10
-
-                            RowLayout {
-                                FluText {
-                                    text: "ID:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? detailDialog.wallpaperData.id : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "分辨率:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? detailDialog.wallpaperData.resolution : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "文件大小:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? formatFileSize(detailDialog.wallpaperData.file_size) : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "收藏数:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? detailDialog.wallpaperData.favorites : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "浏览数:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? detailDialog.wallpaperData.views : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "创建时间:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? detailDialog.wallpaperData.created_at : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                    wrapMode: Text.Wrap
-                                }
-                            }
-
-                            RowLayout {
-                                FluText {
-                                    text: "来源:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                    color: FluTheme.dark ? "#CCCCCC" : "#666666"
-                                }
-                                FluText {
-                                    text: detailDialog.wallpaperData ? (detailDialog.wallpaperData.source || "无") : ""
-                                    font.pixelSize: 12
-                                    Layout.fillWidth: true
-                                    wrapMode: Text.Wrap
-                                }
-                            }
-
-                            // 颜色标签
-                            RowLayout {
-                                FluText {
-                                    text: "主要颜色:"
-                                    font.pixelSize: 12
-                                    Layout.preferredWidth: 80
-                                }
-
-                                RowLayout {
-                                    Repeater {
-                                        model: detailDialog.wallpaperData ? detailDialog.wallpaperData.colors : []
-                                        Rectangle {
-                                            width: 20
-                                            height: 20
-                                            color: modelData
-                                            radius: 3
-                                            border.color: "#CCCCCC"
-                                            border.width: 1
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    Connections {
+                        target: Downloader
+                        onSuccess: showSuccess("已保存: " + filePath)
+                        onFailure: showError(reason)
+                    }
+                    FluButton {
+                        text: qsTr("关闭")
+                        onClicked: detailWindow.close()
                     }
                 }
             }
         }
-
-        positiveText: qsTr("下载原图")
-        onPositiveClicked: {
-            if (wallpaperData && wallpaperData.path) {
-                Qt.openUrlExternally(wallpaperData.path)
-            }
-        }
-
-        negativeText: qsTr("关闭")
-        buttonFlags: FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
     }
-
     // 搜索壁纸函数
     function searchWallpapers() {
         if (loading) return
@@ -449,8 +363,8 @@ FluScrollablePage {
 
     // 显示壁纸详情
     function showWallpaperDetail(wallpaper) {
-        detailDialog.wallpaperData = wallpaper
-        detailDialog.open()
+        detailWindow.wallpaperData = wallpaper
+        detailWindow.show()
     }
 
     // 格式化文件大小

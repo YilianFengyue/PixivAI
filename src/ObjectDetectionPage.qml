@@ -13,7 +13,7 @@ FluScrollablePage {
     id: root
     property string detectionResult: ""
     property bool isDetecting: false
-
+    property var records: []
     // 添加文件选择对话框
     FileDialog {
         id: fileDialog
@@ -536,6 +536,70 @@ FluScrollablePage {
                 }
             }
 
+            FluGroupBox {
+                title: "💾 保存检测结果"
+                width: parent.width
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    spacing: 10
+
+                    Row {
+                        spacing: 10
+
+                        FluButton {
+                            text: "保存当前结果"
+                            enabled: root.detectionResult !== ""
+                            onClicked: {
+                                // 提取置信度
+                                var confidence = extractConfidenceFromResult(root.detectionResult)
+
+                                // 保存到数据库
+                                var success = simpleDB.saveRecord(
+                                    "检测图片",  // 简化路径
+                                    "object_detection",
+                                    root.detectionResult,
+                                    confidence
+                                )
+
+                                if (success) {
+                                    showSuccess("检测结果已保存")
+                                } else {
+                                    showError("保存失败")
+                                }
+                            }
+                        }
+
+
+                        FluButton {
+                            text: "🔄 查询总数"
+                            onClicked: {
+                                var recs = simpleDB.getAllRecords()
+                                showInfo("当前共 " + recs.length + " 条历史")
+                            }
+                        }
+                        FluButton {
+                            text: "测试数据库"
+                            onClicked: {
+                                // 保存
+                                var success = simpleDB.saveRecord(
+                                    "test.jpg",
+                                    "object_detection",
+                                    "发现了一只猫",
+                                    0.95
+                                )
+                                showInfo("保存: " + (success ? "成功" : "失败"))
+
+                                // 查询
+                                var records = simpleDB.getAllRecords()
+                                showInfo("记录数: " + records.length)
+                            }
+                        }
+                    }
+
+
+                }
+            }
             // 检测参数设置
             FluGroupBox {
                 title: qsTr("检测参数")
@@ -569,29 +633,7 @@ FluScrollablePage {
                             }
                         }
 
-                        FluRadioButton {
-                            id: radioSSD
-                            text: "SSD"
-                            onClicked: {
-                                if (checked) {
-                                    radioYolo.checked = false
-                                    radioMobileNet.checked = false
-                                    cvTest.setDetectionModel("ssd")
-                                }
-                            }
-                        }
 
-                        // FluRadioButton {
-                        //     id: radioMobileNet
-                        //     text: "MobileNet"
-                        //     onClicked: {
-                        //         if (checked) {
-                        //             radioYolo.checked = false
-                        //             radioSSD.checked = false
-                        //             cvTest.setDetectionModel("mobilenet")
-                        //         }
-                        //     }
-                        // }
                     }
 
                     // 置信度设置
@@ -686,14 +728,6 @@ FluScrollablePage {
                         showInfo(qsTr("检测结果已清空"))
                     }
                 }
-
-                FluButton {
-                    text: qsTr("保存报告")
-                    enabled: root.detectionResult !== ""
-                    onClicked: {
-                        showSuccess(qsTr("检测报告已保存"))
-                    }
-                }
             }
 
             // 检测状态指示
@@ -744,7 +778,7 @@ FluScrollablePage {
             // 主结果显示区域
             FluMultilineTextBox {
                 width: parent.width
-                height: 300
+                height: 500
                 readOnly: true
                 wrapMode: TextEdit.Wrap
                 text: root.detectionResult
@@ -819,38 +853,7 @@ FluScrollablePage {
                 }
             }
 
-            // 快速操作
-            Column {
-                width: parent.width
-                spacing: 8
 
-                FluButton {
-                    width: parent.width
-                    text: qsTr("📋 复制检测结果")
-                    enabled: root.detectionResult !== ""
-                    onClicked: {
-                        // 这里需要添加复制到剪贴板的功能
-                        showSuccess(qsTr("检测结果已复制到剪贴板"))
-                    }
-                }
-
-                FluButton {
-                    width: parent.width
-                    text: qsTr("📊 导出检测报告")
-                    enabled: root.detectionResult !== ""
-                    onClicked: {
-                        showSuccess(qsTr("检测报告已导出"))
-                    }
-                }
-
-                FluButton {
-                    width: parent.width
-                    text: qsTr("⚙️ 高级设置")
-                    onClicked: {
-                        showInfo(qsTr("高级设置功能待开发..."))
-                    }
-                }
-            }
         }
     }
 
@@ -957,4 +960,28 @@ FluScrollablePage {
             console.log("❌ 更新统计信息出错:", error)
         }
     }
+    // 提取置信度的函数（添加到页面底部）
+    function extractConfidenceFromResult(result) {
+        // 简单的置信度提取
+        var match = result.match(/置信度:\s*(\d+\.?\d*)%/)
+        if (match) {
+            return parseFloat(match[1]) / 100.0
+        }
+
+        // 如果没找到，尝试提取平均值
+        var matches = result.match(/置信度:\s*(\d+\.?\d*)%/g)
+        if (matches && matches.length > 0) {
+            var total = 0
+            for (var i = 0; i < matches.length; i++) {
+                var conf = matches[i].match(/(\d+\.?\d*)%/)
+                if (conf) {
+                    total += parseFloat(conf[1])
+                }
+            }
+            return (total / matches.length) / 100.0
+        }
+
+        return 0.0
+    }
+
 }

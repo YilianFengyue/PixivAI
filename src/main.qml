@@ -77,7 +77,8 @@ FluWindow {
                         { text: qsTr("以图搜源"), icon: FluentIcons.Search,    component: "ImageSearchPage" },
                         { text: qsTr("AI标签"),   icon: FluentIcons.Attach,    component: "AILabelPage" },
                         { text: qsTr("AI识物"),   icon: FluentIcons.Webcam,    component: "ObjectDetectionPage" },
-                        { text: qsTr("AI绘图"),   icon: FluentIcons.Edit,    component: "MidjourneyPage" }
+                        { text: qsTr("AI绘图"),   icon: FluentIcons.Edit,    component: "MidjourneyPage" },
+                        { text: qsTr("历史记录"),   icon: FluentIcons.History,    component: "SimpleHistoryPage" }
                     ]
 
                     FluButton {
@@ -205,6 +206,10 @@ FluWindow {
             // 页面6: AI绘图
             MidjourneyPage{
                 id: midjourneyPage
+            }
+            // 页面7: 历史记录
+            SimpleHistoryPage{
+                id: simpleHistoryPage
             }
         }
     }

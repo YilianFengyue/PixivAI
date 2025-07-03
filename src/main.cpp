@@ -5,6 +5,9 @@
 #include <QIcon>
 //opencvTest
 #include "opencvtest.h"
+#include "simpledb.h"  // 新增：引入简单数据库
+#include "filedownloader.h" //文件下载器
+#include <QQmlContext>
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -15,6 +18,7 @@ int main(int argc, char *argv[])
     app.setWindowIcon(QIcon("qrc:/logo.ico"));
     qmlRegisterType<ReverseImageSearch>("ImageSearch", 1, 0, "ImageSearcher");
     qmlRegisterType<OpenCVTest>("OpenCVTest", 1, 0, "OpenCVTest");
+    qmlRegisterSingletonInstance("Tools",1,0,"Downloader", new FileDownloader(&app));
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -26,6 +30,10 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
+
+    // 新增：创建全局数据库实例
+    SimpleDB* db = new SimpleDB(&app);
+    engine.rootContext()->setContextProperty("simpleDB", db);
     const QUrl url(QStringLiteral("qrc:/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {

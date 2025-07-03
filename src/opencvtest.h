@@ -26,7 +26,8 @@ public slots:
     QString getOpenCVVersion();
     bool testOpenCV();
     void classifyImage(const QString& imagePath);
-
+    // 新增：增强版AI分类
+    void classifyImageEnhanced(const QString& imagePath, const QString& mode);
     // 目标检测功能
     void detectObjects(const QString& imagePath);
     void detectObjectsFromCamera();
@@ -52,12 +53,14 @@ signals:
     void cameraActiveChanged();
     void captureSessionChanged();
     void detectionError(const QString& error);
-
+    // 新增：增强版分类完成信号
+    void enhancedClassificationFinished(const QString& result);
 private slots:
     void onDetectionProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void onCameraFrameReady();  // 保留以兼容现有代码
     void onVideoFrameChanged(const QVideoFrame& frame);  // 新增
     void onImageCaptured(const QImage& image);  // 新增
+
 
 private:
     // 原有成员
@@ -72,7 +75,8 @@ private:
     QImageCapture* m_imageCapture;  // 新增：用于静态图像捕获
     QTimer* m_captureTimer;
     QTimer* m_frameWaitTimer;
-
+    // 新增：增强版分类进程
+    QProcess m_enhancedProcess;
     // 状态变量
     bool m_cameraActive;
     bool m_frameReady;
